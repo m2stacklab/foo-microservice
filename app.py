@@ -9,6 +9,7 @@ path = os.getenv('ROUTE_PATH')
 msg = os.getenv('MESSAGE')
 hostname = socket.gethostname()
 version = "v1.0.1"
+language = "Python"
 
 if port is None:
     port = 3001
@@ -25,7 +26,8 @@ def hello_world():  # put application's code here
     return {
         "message": msg,
         "hostname": hostname,
-        "version": version
+        "version": version,
+        "language": language
     }
 
 
@@ -35,4 +37,5 @@ if __name__ == '__main__':
     print(f"Path: {path}")
     print(f"Port: {port}")
     print(f"Message: {msg}")
+    print(f"Language: {language}")
     app.run(debug=True, host='0.0.0.0', port=port)
