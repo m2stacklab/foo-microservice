@@ -1,31 +1,38 @@
 from flask import Flask
 import os
+import socket
 
 app = Flask(__name__)
 
-PORT = os.getenv('PORT')
-FOO_PATH = os.getenv('FOO_PATH')
-MSG = os.getenv('MSG')
-
+port = os.getenv('PORT')
+path = os.getenv('ROUTE_PATH')
+msg = os.getenv('MESSAGE')
+hostname = socket.gethostname()
 version = "v1.0.1"
 
-if PORT is None:
-    PORT = 3001
+if port is None:
+    port = 3001
 
-if FOO_PATH is None:
-    FOO_PATH = "foo"
+if path is None:
+    path = "v1/foo"
 
-if MSG is None:
-    MSG = "Hello foo"
+if msg is None:
+    msg = "Hello foo"
 
 
-@app.route(f'/{FOO_PATH}')
+@app.route(f'/{path}')
 def hello_world():  # put application's code here
     return {
-        "message": MSG,
+        "message": msg,
+        "hostname": hostname,
         "version": version
     }
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=PORT)
+    print(f"API is running")
+    print(f"Hostname: {hostname}")
+    print(f"Path: {path}")
+    print(f"Port: {port}")
+    print(f"Message: {msg}")
+    app.run(debug=True, host='0.0.0.0', port=port)
